@@ -2,6 +2,7 @@
 
 // 1. import `extendTheme` function
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import React from "react";
 
 // 2. Add your color mode config
 const config: ThemeConfig = {
@@ -10,9 +11,8 @@ const config: ThemeConfig = {
 };
 
 // 3. extend the theme
-const theme = extendTheme({
+export const theme = extendTheme({
   config,
- 
 });
 
-export default theme;
+export default ()=><></>
