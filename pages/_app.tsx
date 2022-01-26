@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import MainLayout from "./layouts/Main";
+import Meteor from 'meteor-react-js';
 import { ChakraProvider } from '@chakra-ui/react'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,5 +12,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ChakraProvider>
   );
 }
+
 
 export default MyApp;
