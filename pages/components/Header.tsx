@@ -19,7 +19,7 @@ const menu_items = [
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
-  
+
   return (
     <Container maxW="container.xl">
       <div className="flex w-full   px-10 py-3">
@@ -38,10 +38,7 @@ export default function Header() {
                   key={item.path}
                   className="grid place-items-center flex-1  cursor-pointer"
                 >
-                  <Link
-                    href={item.path}
-                    className="hover:border-b-2 hover:border-b-rose-600"
-                  >
+                  <Link href={item.path}>
                     <Text className="cursor-pointer hover:border-b-2 hover:border-b-rose-600">
                       {item.name}
                     </Text>
