@@ -28,7 +28,7 @@ interface MenuItemProps {
 }
 function MenuItem({ title, path }: MenuItemProps) {
   return (
-    <li className="mx-10 font-bold">
+    <li className="mx-10 font-bold text-primary-darker dark:text-primary-lighter">
       <Link href={path}>{title}</Link>
     </li>
   );
@@ -39,6 +39,8 @@ function MiddleSide() {
     <ul className="flex justify-center justify-between items-center">
       <MenuItem title="Home" path="/home" />
       <MenuItem title="Projects" path="/projects" />
+      <MenuItem title="Stats" path="/stats" />
+      <MenuItem title="Blogs" path="/blogs" />
     </ul>
   );
 }
@@ -53,14 +55,13 @@ function RightSide() {
     <>
       {themeState?.isDark === true && (
         <motion.div whileTap={{ scale: 0.5 }} onClick={onModeToggle}>
-          <MdDarkMode className="text-3xl cursor-pointer" />
+          <MdDarkMode className="text-3xl cursor-pointer text-primary-darker dark:text-primary-lighter" />
         </motion.div>
       )}
       {themeState?.isDark === false && (
         <motion.div whileTap={{ scale: 0.5 }}    onClick={onModeToggle}>
           <BsSunFill
-            className="text-3xl cursor-pointer"
-         
+            className="text-3xl cursor-pointer text-primary-darker"
           />
         </motion.div>
       )}
@@ -70,7 +71,7 @@ function RightSide() {
 
 const Header: React.FC<Props> = () => {
   return (
-    <header className="fixed flex justify-center   w-full items-center justify-between px-10 py-2 bg-white">
+    <header className="fixed flex justify-center   w-full items-center justify-between px-10 py-2 bg-primary-lighter dark:bg-primary-darker">
       <LeftSide></LeftSide>
       <MiddleSide></MiddleSide>
       <RightSide></RightSide>

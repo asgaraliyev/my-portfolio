@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
 const Blogs: NextPage = () => {
-  return <h1>Blogs</h1>;
+  return <div id="blogs-page"></div>;
 };
 export default Blogs;

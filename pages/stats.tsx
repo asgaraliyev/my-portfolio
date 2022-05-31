@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
 const Stats: NextPage = () => {
-  return <h1>Stats</h1>;
+  return <div id="stats-page">Stats</div>;
 };
 export default Stats;
