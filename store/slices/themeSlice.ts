@@ -1,3 +1,4 @@
+import { AppState } from "./../index";
 import { createSlice } from "@reduxjs/toolkit";
 export interface ThemeState {
   isDark: boolean;
@@ -5,16 +6,23 @@ export interface ThemeState {
 const initialState: ThemeState = {
   isDark: false,
 };
+
+// buradaki name statede gorsenmedi.createSlice  evvelki methodda manual olarag edilmisin daha avtomatiklesdirilmis veziyyetidi
 export const themeSlice = createSlice({
   name: "theme",
   initialState,
-  reducers:{
-      toggle(state){
-        console.log("state",state)
-        state.isDark=!state.isDark
-      }
-  }
+  reducers: {
+    toggleDarkMode(state) {
+      state.isDark = !state.isDark;
+    },
+    activeDarkMode(state) {
+      state.isDark = true;
+    },
+    deactiveDarkMode(state) {
+      state.isDark = false;
+    },
+  },
 });
-console.log("themeSlice.tsx",themeSlice)
-export const {toggle}=themeSlice.actions
-export default themeSlice.reducer
+export const selectTheme = (state: AppState) => state.theme;
+export const { toggleDarkMode ,activeDarkMode,deactiveDarkMode} = themeSlice.actions;
+export default themeSlice.reducer;
