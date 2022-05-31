@@ -1,14 +1,1 @@
-$primary-darker:#1f1f1c;
-$primary-lighter:#ffffe3;
-body{
-    background-color: $primary-lighter;
-    *{
-        color:$primary-darker;
-    }
-}
-body.dark{
-    background-color: $primary-darker;
-    *{
-        color:$primary-lighter;
-    }
-}
+@import "./layouts/main/main.scss"

@@ -14,14 +14,21 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       disaptch(activeDarkMode());
     } else if (isDark === false) {
       disaptch(deactiveDarkMode());
-    } 
+    }
   }
   React.useEffect(onStartup, []);
   return (
     <>
       <Header />
-      {children}
-      <Footer />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <main className="max-w-4xl mx-auto ">
+        {children}
+        <Footer />
+      </main>
     </>
   );
 };
