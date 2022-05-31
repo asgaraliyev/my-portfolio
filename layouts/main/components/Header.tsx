@@ -1,17 +1,32 @@
 import Link from "next/link";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdMenu } from "react-icons/md";
 import { BsSunFill } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { selectTheme, toggleDarkMode } from "../../../store/slices/themeSlice";
+import {
+  selectTheme,
+  toggleDarkMode,
+  toggleMobileMenu,
+} from "../../../store/slices/themeSlice";
 interface Props {}
 
 function LeftSide() {
+  const dispatch = useAppDispatch();
+  const themeState = useAppSelector(selectTheme);
+  console.log("themeState", themeState);
   return (
-    <div >
+    <div>
       <Link href="/home">
-        <h1 className="dark:text-primary-lighter text-bold text-2xl cursor-pointer text-primary-darker ">Asgar Aliyev</h1>
+        <h1 className="hidden sm:block dark:text-primary-lighter text-bold text-2xl cursor-pointer text-primary-darker ">
+          Asgar Aliyev
+        </h1>
       </Link>
+      <MdMenu
+        className="dark:text-primary-lighter text-3xl text-primary-darker"
+        onClick={() => {
+          dispatch(toggleMobileMenu());
+        }}
+      />
     </div>
   );
 }

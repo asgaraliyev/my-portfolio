@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import store from "../store";
 import { Provider } from "react-redux";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/main/MainLayout";
 
 function MyApp({ Component, pageProps }: AppProps) {
 

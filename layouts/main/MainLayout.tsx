@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "../components/layouts/main/Footer";
-import Header from "../components/layouts/main/Header";
-import { useAppDispatch } from "../hooks";
-import { activeDarkMode, deactiveDarkMode } from "../store/slices/themeSlice";
+import { useAppDispatch } from "../../hooks";
+import { activeDarkMode ,deactiveDarkMode} from "../../store/slices/themeSlice";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 interface Props {
   children: React.ReactNode;
 }

@@ -1,17 +1,19 @@
 import { AppState } from "./../index";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface ThemeState {
   isDark: boolean;
+  isMobileMenuActive: boolean;
 }
 const initialState: ThemeState = {
-  isDark:false,
+  isDark: false,
+  isMobileMenuActive: false,
 };
 
 function changeIsDarkTo(isDark: boolean) {
   if (isDark === true) {
     document.body.classList.add("dark");
-  localStorage.setItem("isDark", true.toString());
-  }else if(isDark===false){
+    localStorage.setItem("isDark", true.toString());
+  } else if (isDark === false) {
     document.body.classList.remove("dark");
     localStorage.setItem("isDark", false.toString());
   }
@@ -21,6 +23,10 @@ export const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
+    toggleMobileMenu(state) {
+      const isActive=!state.isMobileMenuActive
+      state.isMobileMenuActive = isActive;
+    },
     toggleDarkMode(state) {
       state.isDark = !state.isDark;
       changeIsDarkTo(state.isDark);
@@ -36,6 +42,10 @@ export const themeSlice = createSlice({
   },
 });
 export const selectTheme = (state: AppState) => state.theme;
-export const { toggleDarkMode, activeDarkMode, deactiveDarkMode } =
-  themeSlice.actions;
+export const {
+  toggleDarkMode,
+  activeDarkMode,
+  deactiveDarkMode,
+  toggleMobileMenu,
+} = themeSlice.actions;
 export default themeSlice.reducer;

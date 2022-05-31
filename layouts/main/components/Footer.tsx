@@ -13,15 +13,15 @@ function FooterOneRowLi({ Icon, title, onClick }: FooterOneRowLiProps) {
   return (
     <li className="text-primary-lighter my-10 cursor-pointer">
       <a onClick={onClick}>
-        <span className="flex flex-row items-center justify-between">
+        <span className="flex flex-row items-center ">
           {Icon ? (
             <Icon
-              className="w-4 text-primary-darker dark:text-primary-lighter"
+              className=" text-primary-darker dark:text-primary-lighter"
               width={10}
               height={10}
             />
           ) : null}
-          <span className="mx-2 text-primary-darker dark:text-primary-lighter">
+          <span className="mx-2 text-primary-darker dark:text-primary-lighter text-lg">
             {title}
           </span>
         </span>
@@ -33,10 +33,10 @@ function FooterOneRowLi({ Icon, title, onClick }: FooterOneRowLiProps) {
 const Footer: React.FC<Props> = () => {
   const router = useRouter();
   return (
-    <footer className="w-ful">
+    <footer className="w-ful border-t-2 border-primary-dark">
       {/* <div>Spotify</div> */}
       <div className="w-ful flex flex-row ">
-        <ul className="pr-40">
+        <ul className="w-1/3">
           <FooterOneRowLi
             title="Home"
             onClick={() => {
@@ -68,7 +68,7 @@ const Footer: React.FC<Props> = () => {
             }}
           />
         </ul>
-        <ul>
+        <ul className="w-1/3">
           <FooterOneRowLi
             Icon={BsGithub}
             title="Github"
