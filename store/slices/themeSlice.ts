@@ -4,16 +4,22 @@ export interface MenuItem {
   title: string;
   path: string;
 }
+export interface SocialIconItem {
+  title: string;
+  path: string;
+  icon_name: string;
+}
 export interface ThemeState {
   isDark: boolean;
   isMobileMenuActive: boolean;
   menu: MenuItem[];
+  social: SocialIconItem[];
 }
 
 const initialState: ThemeState = {
   isDark: false,
   isMobileMenuActive: false,
-  menu:[
+  menu: [
     {
       title: "Home",
       path: "/home",
@@ -34,8 +40,29 @@ const initialState: ThemeState = {
       title: "Blogs",
       path: "/blogs",
     },
- 
-  ]
+  ],
+  social: [
+    {
+      title: "Github",
+      path: "Github",
+      icon_name: "github",
+    },
+    {
+      title: "Linkedin",
+      path: "Linkedin",
+      icon_name: "linkedin",
+    },
+    {
+      title: "Facebook",
+      path: "Facebook",
+      icon_name: "facebook",
+    },
+    {
+      title: "Instagram",
+      path: "Instagram",
+      icon_name: "instagram",
+    },
+  ],
 };
 
 function changeIsDarkTo(isDark: boolean) {

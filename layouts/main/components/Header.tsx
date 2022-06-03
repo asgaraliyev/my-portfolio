@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MdClose, MdDarkMode, MdMenu } from "react-icons/md";
+import { MdDarkMode, MdMenu } from "react-icons/md";
 import { BsSunFill } from "react-icons/bs";
 // import { motion } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
@@ -10,6 +10,8 @@ import {
   toggleDarkMode,
   toggleMobileMenu,
 } from "../../../store/slices/themeSlice";
+import { useRouter } from "next/router";
+import { social_icons } from "./SocialIcons";
 interface Props {}
 const navigation_animation_variants = {
   open: {
@@ -41,7 +43,6 @@ const menu_icon_variants = {
     rotate: 0,
   },
 };
-
 const MobileMenuItem_variants = {
   open: {
     x: 0,
@@ -59,7 +60,7 @@ const MobileMenuItem_variants = {
   },
 };
 
-function MobileMenuItem({ title, path }: MenuItemProps) {
+function MobileMenuItem({ title, onClick }: MobileMenuItemProps) {
   return (
     <motion.li
       whileHover={{
@@ -71,16 +72,18 @@ function MobileMenuItem({ title, path }: MenuItemProps) {
       variants={MobileMenuItem_variants}
       className="flex flex-col sm:flex-row border-b-2 my-5 dark:border-primary-darker border-primary-lighter"
     >
-      <Link href={path}>
-        <a className="block sm:hidden  text-primary-lighter text-3xl dark:text-primary-darker cursor-pointer">
-          {title}
-        </a>
-      </Link>
+      <a
+        onClick={onClick}
+        className="block sm:hidden  text-primary-lighter text-3xl dark:text-primary-darker cursor-pointer py-2"
+      >
+        {title}
+      </a>
     </motion.li>
   );
 }
-function LeftSide({themeState}: {themeState: ThemeState}) {
+function LeftSide({ themeState }: { themeState: ThemeState }) {
   const [menuStatus, toggleMenuStatus] = useCycle("closed", "open");
+  const router = useRouter();
   const dispatch = useAppDispatch();
   return (
     <div>
@@ -103,10 +106,25 @@ function LeftSide({themeState}: {themeState: ThemeState}) {
               <MobileMenuItem
                 key={item.path}
                 title={item.title}
-                path={item.path}
+                onClick={() => {
+                  router.push(item.path);
+                }}
               />
             );
           })}
+          <div className="w-full flex justify-center bottom-2 fixed">
+            {themeState.social.map((item) => {
+              const Icon = social_icons[item.icon_name];
+              return (
+                <Icon
+                  onClick={() => {
+                    router.push(item.path);
+                  }}
+                  className="cursor-pointer text-2xl mx-2 dark:text-primary-darker text-primary-lighter"
+                />
+              );
+            })}
+          </div>
         </motion.ul>
         <motion.div variants={menu_icon_variants}>
           <MdMenu
@@ -121,19 +139,28 @@ function LeftSide({themeState}: {themeState: ThemeState}) {
     </div>
   );
 }
+interface MobileMenuItemProps {
+  title: string;
+  onClick: () => void;
+}
 interface MenuItemProps {
   title: string;
   path: string;
 }
+
 function MenuItem({ title, path }: MenuItemProps) {
   return (
-    <motion.li whileHover={{scale:1.2}} whileTap={{scale:0.8}} className=" hidden font-bold text-primary-darker dark:text-primary-lighter mx-1 sm:mx-3 md:mx-5 lg:mx-10 sm:block">
+    <motion.li
+      whileHover={{ scale: 1.2 }}
+      whileTap={{ scale: 0.8 }}
+      className=" hidden font-bold text-primary-darker dark:text-primary-lighter mx-1 sm:mx-3 md:mx-5 lg:mx-10 sm:block"
+    >
       <Link href={path}>{title}</Link>
     </motion.li>
   );
 }
 
-function MiddleSide({themeState}: {themeState: ThemeState}) {
+function MiddleSide({ themeState }: { themeState: ThemeState }) {
   return (
     <motion.ul className="flex justify-center justify-between items-center ">
       {themeState.menu.map((item) => {
@@ -143,7 +170,7 @@ function MiddleSide({themeState}: {themeState: ThemeState}) {
   );
 }
 
-function RightSide({themeState}: {themeState: ThemeState}) {
+function RightSide({ themeState }: { themeState: ThemeState }) {
   const dispatch = useAppDispatch();
   function onModeToggle() {
     dispatch(toggleDarkMode());
@@ -166,7 +193,7 @@ function RightSide({themeState}: {themeState: ThemeState}) {
 
 const Header: React.FC<Props> = () => {
   const themeState = useAppSelector(selectTheme);
-  
+
   return (
     <header className="fixed flex justify-between   w-full items-center  px-1 sm:px-3 py-2 bg-primary-lighter dark:bg-primary-darker">
       <LeftSide themeState={themeState}></LeftSide>

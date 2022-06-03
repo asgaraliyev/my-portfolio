@@ -1,7 +1,9 @@
 import React from "react";
-import { BsFacebook, BsGithub, BsInstagram, BsLinkedin } from "react-icons/bs";
 import type { IconType } from "react-icons";
 import { useRouter } from "next/router";
+import { useAppSelector } from "../../../hooks";
+import { selectTheme } from "../../../store/slices/themeSlice";
+import { social_icons } from "./SocialIcons";
 
 interface Props {}
 interface FooterOneRowLiProps {
@@ -32,71 +34,37 @@ function FooterOneRowLi({ Icon, title, onClick }: FooterOneRowLiProps) {
 
 const Footer: React.FC<Props> = () => {
   const router = useRouter();
+  const themeState = useAppSelector(selectTheme);
   return (
     <footer className="w-ful border-t-2 border-primary-dark">
       {/* <div>Spotify</div> */}
       <div className="w-ful flex flex-row ">
         <ul className="w-1/3">
-          <FooterOneRowLi
-            title="Home"
-            onClick={() => {
-              router.push("/home");
-            }}
-          />
-          <FooterOneRowLi
-            title="Projects"
-            onClick={() => {
-              router.push("/projects");
-            }}
-          />
-          <FooterOneRowLi
-            title="Stats"
-            onClick={() => {
-              router.push("/stats");
-            }}
-          />
-          <FooterOneRowLi
-            title="Home"
-            onClick={() => {
-              router.push("/home");
-            }}
-          />
-          <FooterOneRowLi
-            title="Blogs"
-            onClick={() => {
-              router.push("/blogs");
-            }}
-          />
+          {themeState.menu.map((item) => {
+            return (
+              <FooterOneRowLi
+                key={item.path}
+                title={item.title}
+                onClick={() => {
+                  router.push(item.path);
+                }}
+              />
+            );
+          })}
         </ul>
         <ul className="w-1/3">
-          <FooterOneRowLi
-            Icon={BsGithub}
-            title="Github"
-            onClick={() => {
-              window.open("Github", "_blank");
-            }}
-          />
-          <FooterOneRowLi
-            Icon={BsLinkedin}
-            title="Linkedin"
-            onClick={() => {
-              window.open("Linkedin", "_blank");
-            }}
-          />
-          <FooterOneRowLi
-            Icon={BsFacebook}
-            title="Facebook"
-            onClick={() => {
-              window.open("Facebook", "_blank");
-            }}
-          />
-          <FooterOneRowLi
-            Icon={BsInstagram}
-            title="Instagram"
-            onClick={() => {
-              window.open("Instagram", "_blank");
-            }}
-          />
+          {themeState.social.map((item) => {
+            return (
+              <FooterOneRowLi
+                key={item.path}
+                Icon={social_icons[item.icon_name]}
+                title={item.title}
+                onClick={() => {
+                  window.open(item.path, "_blank");
+                }}
+              />
+            );
+          })}
         </ul>
       </div>
     </footer>
