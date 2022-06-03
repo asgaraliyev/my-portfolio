@@ -16,6 +16,10 @@ module.exports = {
       secondary: "#873e3e",
       "secondary-light": "#c47c7c",
       "secondary-lighter": "#ffd1d1",
+
+      "primary-darker-border":"#1f1f1c7d",
+      "primary-lighter-border":"#ffffe361",
+
     },
   },
   // safelist: [

@@ -70,11 +70,12 @@ function MobileMenuItem({ title, onClick }: MobileMenuItemProps) {
         scale: 0.95,
       }}
       variants={MobileMenuItem_variants}
-      className="flex flex-col sm:flex-row border-b-2 my-5 dark:border-primary-darker border-primary-lighter"
+ 
+      className="mobile-menu-li flex flex-col sm:flex-row border-b-2  my-5 dark:border-primary-darker-border border-primary-lighter-border"
     >
       <a
         onClick={onClick}
-        className="block sm:hidden  text-primary-lighter text-3xl dark:text-primary-darker cursor-pointer py-2"
+        className="block sm:hidden  text-primary-lighter text-2xl dark:text-primary-darker cursor-pointer py-2"
       >
         {title}
       </a>
@@ -97,7 +98,7 @@ function LeftSide({ themeState }: { themeState: ThemeState }) {
           initial={false}
           transition={{ duration: 10 }}
           variants={navigation_animation_variants}
-          className="fixed left-0 w-screen   h-screen dark:bg-primary-lighter bg-primary-darker  top-0 p-5"
+          className="fixed left-0 w-screen   h-screen  top-0 p-5 bg-gradient-to-t from-primary-light dark:to-primary-lighter to-primary-darker"
         >
           <br></br>
           <br></br>
@@ -107,6 +108,7 @@ function LeftSide({ themeState }: { themeState: ThemeState }) {
                 key={item.path}
                 title={item.title}
                 onClick={() => {
+                  dispatch(toggleMobileMenu());
                   router.push(item.path);
                 }}
               />
@@ -117,10 +119,11 @@ function LeftSide({ themeState }: { themeState: ThemeState }) {
               const Icon = social_icons[item.icon_name];
               return (
                 <Icon
+                  key={item.path}
                   onClick={() => {
                     router.push(item.path);
                   }}
-                  className="cursor-pointer text-2xl mx-2 dark:text-primary-darker text-primary-lighter"
+                  className="cursor-pointer text-xl mx-2 dark:text-primary-darker text-primary-lighter"
                 />
               );
             })}
@@ -195,7 +198,7 @@ const Header: React.FC<Props> = () => {
   const themeState = useAppSelector(selectTheme);
 
   return (
-    <header className="fixed flex justify-between   w-full items-center  px-1 sm:px-3 py-2 bg-primary-lighter dark:bg-primary-darker">
+    <header className="fixed flex justify-between   w-full items-center  px-1 sm:px-3 py-6 bg-primary-lighter dark:bg-primary-darker">
       <LeftSide themeState={themeState}></LeftSide>
       <MiddleSide themeState={themeState}></MiddleSide>
       <RightSide themeState={themeState}></RightSide>
