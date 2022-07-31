@@ -3,8 +3,8 @@ import type { IconType } from "react-icons";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../../../hooks";
 import { selectTheme } from "../../../store/slices/themeSlice";
-import { social_icons } from "./SocialIcons";
-
+import { icons, MyIcons } from "./Icons";
+import { motion } from "framer-motion";
 interface Props {}
 interface FooterOneRowLiProps {
   Icon?: IconType;
@@ -13,7 +13,11 @@ interface FooterOneRowLiProps {
 }
 function FooterOneRowLi({ Icon, title, onClick }: FooterOneRowLiProps) {
   return (
-    <li className="text-primary-lighter my-10 cursor-pointer">
+    <motion.li
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className="text-primary-lighter my-10 cursor-pointer"
+    >
       <a onClick={onClick}>
         <span className="flex flex-row items-center ">
           {Icon ? (
@@ -28,7 +32,7 @@ function FooterOneRowLi({ Icon, title, onClick }: FooterOneRowLiProps) {
           </span>
         </span>
       </a>
-    </li>
+    </motion.li>
   );
 }
 
@@ -36,8 +40,7 @@ const Footer: React.FC<Props> = () => {
   const router = useRouter();
   const themeState = useAppSelector(selectTheme);
   return (
-    <footer className="w-ful border-t-2 border-primary-dark">
-      {/* <div>Spotify</div> */}
+    <footer className="w-ful border-t-2 border-primary-dark p-2">
       <div className="w-ful flex flex-row ">
         <ul className="w-1/3">
           {themeState.menu.map((item) => {
@@ -57,7 +60,7 @@ const Footer: React.FC<Props> = () => {
             return (
               <FooterOneRowLi
                 key={item.path}
-                Icon={social_icons[item.icon_name]}
+                Icon={MyIcons[item.icon_name]}
                 title={item.title}
                 onClick={() => {
                   window.open(item.path, "_blank");

@@ -1,7 +1,4 @@
 import Link from "next/link";
-import { MdDarkMode, MdMenu } from "react-icons/md";
-import { BsSunFill } from "react-icons/bs";
-// import { motion } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { motion, useCycle } from "framer-motion";
 import {
@@ -11,7 +8,7 @@ import {
   toggleMobileMenu,
 } from "../../../store/slices/themeSlice";
 import { useRouter } from "next/router";
-import { social_icons } from "./SocialIcons";
+import {  MyIcons } from "./Icons";
 interface Props {}
 const navigation_animation_variants = {
   open: {
@@ -70,15 +67,14 @@ function MobileMenuItem({ title, onClick }: MobileMenuItemProps) {
         scale: 0.95,
       }}
       variants={MobileMenuItem_variants}
- 
       className="mobile-menu-li flex flex-col sm:flex-row border-b-2  my-5 dark:border-primary-darker-border border-primary-lighter-border"
     >
-      <a
+      <p
         onClick={onClick}
         className="block sm:hidden  text-primary-lighter text-2xl dark:text-primary-darker cursor-pointer py-2"
       >
         {title}
-      </a>
+      </p>
     </motion.li>
   );
 }
@@ -116,7 +112,7 @@ function LeftSide({ themeState }: { themeState: ThemeState }) {
           })}
           <div className="w-full flex justify-center bottom-2 fixed">
             {themeState.social.map((item) => {
-              const Icon = social_icons[item.icon_name];
+              const Icon = MyIcons[item.icon_name];
               return (
                 <Icon
                   key={item.path}
@@ -130,7 +126,7 @@ function LeftSide({ themeState }: { themeState: ThemeState }) {
           </div>
         </motion.ul>
         <motion.div variants={menu_icon_variants}>
-          <MdMenu
+          <MyIcons.menu
             className={`block sm:hidden  dark:text-primary  text-primary text-3xl  cursor-pointer`}
             onClick={() => {
               dispatch(toggleMobileMenu());
@@ -179,18 +175,14 @@ function RightSide({ themeState }: { themeState: ThemeState }) {
     dispatch(toggleDarkMode());
   }
   return (
-    <>
+    <motion.div whileTap={{ scale: 0.5 }} onClick={onModeToggle}>
       {themeState?.isDark === true && (
-        <motion.div whileTap={{ scale: 0.5 }} onClick={onModeToggle}>
-          <MdDarkMode className="text-3xl cursor-pointer text-primary  relative z-10" />
-        </motion.div>
+        <MyIcons.moon className="text-3xl cursor-pointer text-primary  relative z-10" />
       )}
       {themeState?.isDark === false && (
-        <motion.div whileTap={{ scale: 0.5 }} onClick={onModeToggle}>
-          <BsSunFill className="text-3xl cursor-pointer text-primary relative z-10" />
-        </motion.div>
+        <MyIcons.sun className="text-3xl cursor-pointer text-primary relative z-10" />
       )}
-    </>
+    </motion.div>
   );
 }
 
@@ -198,7 +190,7 @@ const Header: React.FC<Props> = () => {
   const themeState = useAppSelector(selectTheme);
 
   return (
-    <header className="fixed flex justify-between   w-full items-center  px-1 sm:px-3 py-6 bg-primary-lighter dark:bg-primary-darker">
+    <header className="fixed flex justify-between   w-full items-center  px-1 sm:px-3 py-6 bg-primary-lighter dark:bg-primary-darker z-10">
       <LeftSide themeState={themeState}></LeftSide>
       <MiddleSide themeState={themeState}></MiddleSide>
       <RightSide themeState={themeState}></RightSide>
